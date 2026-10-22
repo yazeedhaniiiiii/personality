@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاضرات علم النفس والطب النفسي: سيكولوجية الشخصية (Personality)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cairo & Tajawal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        },
+                        exam: {
+                            badge: '#dc2626',
+                            bg: '#fef2f2',
+                            border: '#f87171'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background-color: #f8fafc;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] summary .arrow-icon {
+            transform: rotate(180deg);
+        }
+        .term-badge {
+            font-family: 'Courier New', Courier, monospace;
+            direction: ltr;
+            display: inline-block;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            details { border: 1px solid #cbd5e1 !important; margin-bottom: 1rem; page-break-inside: avoid; }
+            details[open] summary { background: #f1f5f9 !important; }
+            body { background: white !important; color: black !important; }
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Top Announcement Bar -->
+    <header class="bg-gradient-to-r from-sky-900 via-indigo-900 to-slate-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3 text-center md:text-right">
+                    <div class="w-12 h-12 rounded-2xl bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-sky-400 text-2xl shadow-inner">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-black tracking-tight text-white font-cairo">
+                            محاضرات سيكولوجية الشخصية <span class="text-sky-400 text-base font-semibold">(Personality)</span>
+                        </h1>
+                        <p class="text-xs sm:text-sm text-slate-300">
+                            تفريغ دراسي أكاديمي شامل ومبوب للمحاضرات (د. أيمن) • لطلبة الطب والعلوم السلوكية
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex items-center flex-wrap gap-2 no-print">
+                    <button onclick="toggleAllAccordions(true)" class="px-3 py-1.5 bg-sky-700/80 hover:bg-sky-600 text-xs sm:text-sm font-semibold rounded-lg shadow transition flex items-center gap-1.5 text-white">
+                        <i class="fa-solid fa-angles-down text-sky-300"></i> فتح الكل
+                    </button>
+                    <button onclick="toggleAllAccordions(false)" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs sm:text-sm font-semibold rounded-lg shadow transition flex items-center gap-1.5 text-slate-200">
+                        <i class="fa-solid fa-angles-up text-slate-400"></i> طي الكل
+                    </button>
+                    <button onclick="window.print()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-xs sm:text-sm font-semibold rounded-lg shadow transition flex items-center gap-1.5 text-white">
+                        <i class="fa-solid fa-print"></i> طباعة / PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search Filter Bar -->
+            <div class="mt-3 relative no-print">
+                <div class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <input type="text" id="searchInput" onkeyup="filterContent()" 
+                    placeholder="ابحث عن مصطلح (مثل: Eysenck, Super-ego, Castration, Conditioning, أو كلمة مفتاحية)..." 
+                    class="w-full pr-10 pl-4 py-2 bg-slate-800/90 text-white placeholder-slate-400 border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent text-sm transition">
+                <span id="searchBadge" class="hidden absolute left-3 top-2 px-2 py-0.5 text-xs bg-sky-500 text-white rounded-md"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Key Indicators / Legends -->
+    <div class="bg-white border-b border-slate-200 py-2.5 px-4 sm:px-8 text-xs font-medium text-slate-600 no-print">
+        <div class="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-3">
+            <span class="font-bold text-slate-800 flex items-center gap-1">
+                <i class="fa-solid fa-tags text-sky-600"></i> دليل الدلالات اللونية:
+            </span>
+            <div class="flex items-center flex-wrap gap-3 sm:gap-6">
+                <span class="flex items-center gap-1.5">
+                    <span class="w-3 h-3 rounded-full bg-red-600"></span>
+                    <strong class="text-red-700">سؤال امتحاني / High-Yield</strong>
+                </span>
+                <span class="flex items-center gap-1.5">
+                    <span class="w-3 h-3 rounded-full bg-blue-600"></span>
+                    <span class="text-blue-700">مصطلح وتعريف إنجليزي</span>
+                </span>
+                <span class="flex items-center gap-1.5">
+                    <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                    <span class="text-amber-800">مقارنة وفروق جوهرية</span>
+                </span>
+                <span class="flex items-center gap-1.5">
+                    <span class="w-3 h-3 rounded-full bg-purple-600"></span>
+                    <span class="text-purple-800">نقد وتحليل فكري دقيق</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-grow w-full space-y-6">
+
+        <!-- Banner Intro Box -->
+        <div class="bg-gradient-to-br from-sky-50 via-white to-blue-50 border border-sky-200 rounded-2xl p-5 shadow-sm">
+            <div class="flex items-start gap-4">
+                <div class="p-3 bg-sky-600 text-white rounded-xl shadow-md text-xl">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg sm:text-xl font-bold text-slate-900 font-cairo">
+                        خريطة المنهج: دراسة بنية وديناميكيات الشخصية
+                    </h2>
+                    <p class="text-sm text-slate-600 mt-1 leading-relaxed">
+                        تم تنظيم المحتوى الصوتي للمحاضرتين في <strong class="text-sky-800">5 محاور رئيسية تفاعلية</strong> تضم التعريفات، الفروق الاصطلاحية، نماذج السمات، نقد التحليل النفسي لفرويد، ومبادئ المدرسة السلوكية. انقر على أي محور لفتحه واستعراض النقاط الامتحانية والتفريغ العلمي الدقيق.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACCORDION SECTION 1 -->
+        <details class="group bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200" open>
+            <summary class="flex items-center justify-between p-5 bg-gradient-to-r from-slate-50 to-white hover:bg-sky-50/50 cursor-pointer border-b border-slate-100 select-none">
+                <div class="flex items-center gap-3">
+                    <span class="w-9 h-9 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center font-bold text-base font-cairo">1</span>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900 font-cairo flex items-center gap-2">
+                            <span>مفهوم الشخصية والمعتقدات والنمط التكيفي مقابل الاضطراب</span>
+                            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full font-semibold border border-red-200">موضع امتحان</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-0.5">التعريف الدقيق، ثالوث المعتقدات، شروط السلوك المميز، الفرق بين العادي والـ Personality Disorder</p>
+                    </div>
+                </div>
+                <div class="arrow-icon transition-transform duration-200 text-slate-400 group-hover:text-sky-600 text-lg">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </summary>
+
+            <div class="p-6 space-y-6 text-sm text-slate-700 leading-relaxed bg-white">
+                
+                <!-- Definition Box -->
+                <div class="bg-sky-50 border-r-4 border-sky-600 p-4 rounded-xl">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-bold text-sky-950 flex items-center gap-2">
+                            <i class="fa-solid fa-quote-right text-sky-600"></i>
+                            التعريف الأكاديمي المعتمد للشخصية (Personality Definition):
+                        </span>
+                        <span class="bg-sky-200 text-sky-800 text-xs px-2 py-0.5 rounded font-mono font-bold">حفظ نصي</span>
+                    </div>
+                    <p class="text-slate-800 font-medium mb-2">
+                        الشخصية ليست مجرد ترجمة لفظية ولا قائمة بالعوامل المؤثرة، بل هي:
+                    </p>
+                    <blockquote class="bg-white p-3 rounded-lg border border-sky-200 text-sky-900 font-semibold term-badge w-full text-right">
+                        "Total pattern of individual behavior as shown in his characteristic habits, thoughts, expressions, attitudes, interests, and philosophy of life."
+                    </blockquote>
+                    <p class="text-xs text-slate-600 mt-2">
+                        (النمط الكلي لسلوك الفرد كما يتجلى في عاداته المميزة، أفكاره، تعبيراته، اتجاهاته، اهتماماته، وفلسفته في الحياة).
+                    </p>
+                </div>
+
+                <!-- Exam Alert -->
+                <div class="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
+                    <div class="text-red-600 text-xl mt-0.5"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <div>
+                        <h4 class="font-bold text-red-900 text-sm font-cairo">نقطة امتحانية حرجة: السلوك العابر ليس شخصية!</h4>
+                        <p class="text-xs text-red-800 mt-1">
+                            إذا تعرض شخص لضغوط حادة فغضب أو تصرف بعصبية، <strong>لا يقال إن شخصيته عصبية</strong>. لكي يُعد السلوك مكوناً للشخصية يُشترط أن يكون <strong>نمطاً ثابتاً ومميزاً (Characteristic Pattern)</strong> يظهر عبر مواقف وأزمنة متعددة ويمكن من خلاله التنبؤ بردود أفعاله.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Types of Beliefs -->
+                <div>
+                    <h4 class="font-bold text-slate-900 mb-3 text-sm flex items-center gap-2 font-cairo">
+                        <i class="fa-solid fa-layer-group text-sky-600"></i>
+                        منظومة المعتقدات المكونة للشخصية (ليست دينية فقط):
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-xl">
+                            <span class="text-xs font-bold text-sky-700 bg-sky-100 px-2 py-0.5 rounded">1. معتقدات دينية</span>
+                            <p class="text-xs text-slate-600 mt-2">ما يتعلق بالإيمان، العبادات، والأحكام الدينية الصريحة.</p>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-xl">
+                            <span class="text-xs font-bold text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded">2. معتقدات مجتمعية</span>
+                            <p class="text-xs text-slate-600 mt-2">عادات وأعراف استقرت في المجتمع (مثل: تفضيل تمليك الشقة للزواج على الإيجار - ليست ديناً بل فكرة سائدة).</p>
+                        </div>
+                        <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-xl">
+                            <span class="text-xs font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">3. معتقدات شخصية</span>
+                            <p class="text-xs text-slate-600 mt-2">أفكار الفرد الذاتية عن نفسه وقيمته (هل أنا محبوب؟ كفء؟ ذو قيمة أم عاجز؟).</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2 italic">
+                        * هذه المعتقدات جميعها تتضافر وتتفاعل معاً لتشكل المنظومة السلوكية والشعورية للفرد.
+                    </p>
+                </div>
+
+                <!-- Adaptive vs Disorder Table -->
+                <div class="border border-slate-200 rounded-xl overflow-hidden">
+                    <table class="w-full text-right text-xs">
+                        <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200 font-cairo">
+                            <tr>
+                                <th class="p-3">المعيار</th>
+                                <th class="p-3">الشخصية السوية التكيفية (Adaptive)</th>
+                                <th class="p-3 bg-red-50 text-red-900">اضطراب الشخصية (Personality Disorder)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr>
+                                <td class="p-3 font-semibold text-slate-900">طبيعة النمط</td>
+                                <td class="p-3 text-emerald-700">مرن وتكيفي، قادر على تكوين علاقات ونجاح اجتماعي.</td>
+                                <td class="p-3 text-red-700 bg-red-50/50">صلب غير متكيف، يولد مشاكل مستمرة وإخفاقات في العلاقات والعمل.</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold text-slate-900">المقرر الدراسي</td>
+                                <td class="p-3">مقرر دراسته الأساسي في <strong>الفرقة الثانية</strong> (Normal Personality).</td>
+                                <td class="p-3 text-red-700 bg-red-50/50">يُدرس بتوسع في <strong>الفرقة الرابعة</strong> في قسم الطب النفسي (Psychiatry).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </details>
+
+        <!-- ACCORDION SECTION 2 -->
+        <details class="group bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+            <summary class="flex items-center justify-between p-5 bg-gradient-to-r from-slate-50 to-white hover:bg-sky-50/50 cursor-pointer border-b border-slate-100 select-none">
+                <div class="flex items-center gap-3">
+                    <span class="w-9 h-9 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold text-base font-cairo">2</span>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900 font-cairo flex items-center gap-2">
+                            <span>الفرق الجوهري بين السِمة/الجِبِلّة (Trait) والخُلُق (Character)</span>
+                            <span class="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded-full font-semibold border border-amber-200">مقارنة رئيسية</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-0.5">حديث أشج عبد القيس، الفطرة المولودة، القيمة التقييمية (Evaluative Force)، ومعادلة الشخصية</p>
+                    </div>
+                </div>
+                <div class="arrow-icon transition-transform duration-200 text-slate-400 group-hover:text-sky-600 text-lg">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </summary>
+
+            <div class="p-6 space-y-6 text-sm text-slate-700 bg-white leading-relaxed">
+
+                <!-- Comparison Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Trait Card -->
+                    <div class="bg-gradient-to-b from-sky-50/80 to-white p-5 rounded-2xl border-2 border-sky-200 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="font-bold text-sky-900 text-base font-cairo">1. السِمة / المزاج الفطري (Trait / Temperament)</h4>
+                            <span class="px-2 py-0.5 bg-sky-200 text-sky-900 text-xs font-bold rounded">مجبول عليها</span>
+                        </div>
+                        <ul class="space-y-2 text-xs text-slate-700">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-sky-600 mt-1"></i>
+                                <span><strong>التعريف:</strong> هي الجِبِلّة أو الفطرة الطبيعية الموروثة التي يُولد بها الإنسان دون تدخّل منه.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-sky-600 mt-1"></i>
+                                <span><strong>الحكم القيمي:</strong> <span class="text-red-600 font-bold">لا توصف بأنها صح أو خطأ (Neither right nor wrong)</span> لأن الإنسان يُفطر عليها خِلقة.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-sky-600 mt-1"></i>
+                                <span><strong>الدليل الشرعي بالمحاضرة:</strong> حديث أشج عبد القيس لما قال له النبي ﷺ: <em>"إن فيك لخصلتين يحبهما الله: الحِلم والأناة"</em>، فسأله: أهما صفتان جبلني الله عليهما أم اكتسبتهما؟ فقال: <em>"بل جبلك الله عليهما"</em>.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-sky-600 mt-1"></i>
+                                <span><strong>أمثلتها من الرُّضع:</strong> طفل يُولد ودوداً يلقي نفسه في أحضان الناس، وآخر كثير البكاء، وثالث متمسك بأشيائه (عنيد بفطرته).</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Character Card -->
+                    <div class="bg-gradient-to-b from-emerald-50/80 to-white p-5 rounded-2xl border-2 border-emerald-200 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="font-bold text-emerald-900 text-base font-cairo">2. الخُلُق / الطبع المكتسب (Character)</h4>
+                            <span class="px-2 py-0.5 bg-emerald-200 text-emerald-900 text-xs font-bold rounded">تقييم مجتمعي</span>
+                        </div>
+                        <ul class="space-y-2 text-xs text-slate-700">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+                                <span><strong>التعريف:</strong> نتاج تفاعل السمات الفطرية (Traits) مع البيئة والتربية والخبرات الحياتية المتراكمة.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+                                <span><strong>القوة التقييمية (Evaluative Force):</strong> <span class="text-emerald-700 font-bold">تحمل حكماً أخلاقياً ومجتمعياً (Right or Wrong)</span>.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+                                <span><strong>المعيار الأكاديمي:</strong>
+                                    <div class="bg-white p-2 rounded border border-emerald-300 font-mono text-[11px] mt-1 text-slate-800">
+                                        "A pattern which may be right or wrong that may meet or fail to meet social standards."
+                                    </div>
+                                </span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-600 mt-1"></i>
+                                <span><strong>أمثلتها:</strong> شخص كريم (Met standards) مقابل شخص بخيل أو لئيم (Failed to meet standards).</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Personality Equation Box -->
+                <div class="bg-amber-50 border border-amber-300 p-4 rounded-xl flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-200 text-amber-800 flex items-center justify-center text-lg font-black">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-amber-900 uppercase">معادلة الشخصية التراكمية في الامتحان</span>
+                            <h5 class="font-extrabold text-amber-950 font-cairo text-sm">
+                                الشخصية (Personality) = السمات الفطرية (Traits / Temperament) + الخبرات والتفاعل البيئي (Environment & Experiences)
+                            </h5>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-amber-200 text-amber-900 px-3 py-1 rounded-full font-bold">نواة الشخصية الحالية</span>
+                </div>
+
+            </div>
+        </details>
+
+        <!-- ACCORDION SECTION 3 -->
+        <details class="group bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+            <summary class="flex items-center justify-between p-5 bg-gradient-to-r from-slate-50 to-white hover:bg-sky-50/50 cursor-pointer border-b border-slate-100 select-none">
+                <div class="flex items-center gap-3">
+                    <span class="w-9 h-9 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-base font-cairo">3</span>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900 font-cairo flex items-center gap-2">
+                            <span>العوامل المؤثرة في تشكيل الشخصية (Determinants of Personality)</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-0.5">الفروق البيولوجية والجندرية، الموقع الجغرافي والبيئة الاجتماعية (تأثير حياة البادية والمدينة)، وظروف الحمل</p>
+                    </div>
+                </div>
+                <div class="arrow-icon transition-transform duration-200 text-slate-400 group-hover:text-sky-600 text-lg">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </summary>
+
+            <div class="p-6 space-y-4 text-sm text-slate-700 bg-white">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    
+                    <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                        <div class="text-sky-600 text-lg mb-2"><i class="fa-solid fa-dna"></i></div>
+                        <h4 class="font-bold text-slate-900 font-cairo mb-1">1. عوامل بيولوجية (Biological)</h4>
+                        <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+                            <li><strong>الفروق بين الجنسين:</strong> تمايز شخصية الرجال عن النساء نابع من فوارق بيولوجية كبرى.</li>
+                            <li><strong>البنية الجسدية (Body build):</strong> الضخم ذو العضلات يختلف عن النحيف.</li>
+                            <li><strong>الملامح والوسامة:</strong> تؤثر سلباً أو إيجاباً على تقبل الذات واستجابة المجتمع.</li>
+                        </ul>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                        <div class="text-emerald-600 text-lg mb-2"><i class="fa-solid fa-map-location-dot"></i></div>
+                        <h4 class="font-bold text-slate-900 font-cairo mb-1">2. الموقع الجغرافي (Geographic)</h4>
+                        <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+                            <li>طبيعة المكان تطبع أهله بقيم منظومة تكتسب بالتشرب.</li>
+                            <li>الريف يختلف عن المدينة، وسكان المجمعات المغلقة (Compounds) يختلفون عن المناطق الشعبية.</li>
+                        </ul>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                        <div class="text-amber-600 text-lg mb-2"><i class="fa-solid fa-person-breastfeeding"></i></div>
+                        <h4 class="font-bold text-slate-900 font-cairo mb-1">3. التعرض الجنيني (Prenatal)</h4>
+                        <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+                            <li>الحالة الفسيولوجية والنفسية للأم أثناء فترة الحمل.</li>
+                            <li>الظروف والبيئة الهرمونية والكيميائية المحيطة بالجنين تؤثر على مزاجه بعد الولادة.</li>
+                        </ul>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+                        <div class="text-indigo-600 text-lg mb-2"><i class="fa-solid fa-users"></i></div>
+                        <h4 class="font-bold text-slate-900 font-cairo mb-1">4. البيئة الاجتماعية (Social)</h4>
+                        <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
+                            <li>أساليب التنشئة الأسرية.</li>
+                            <li>مستوى الرفاهية والوفرة مقابل الشدة والقسوة، وثقافة المحيط التي يُصاغ فيها السلوك.</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- Prophetic and Historical Example -->
+                <div class="bg-indigo-50 border border-indigo-200 p-4 rounded-xl text-xs text-indigo-950 mt-2">
+                    <span class="font-bold text-indigo-900 block mb-1 flex items-center gap-1.5">
+                        <i class="fa-solid fa-book-open"></i> تأصيل تطبيقي من المحاضرة (طباع الأعراب وأهل المدينة):
+                    </span>
+                    أوضح المحاضر أن طبيعة الصحراء والخيام الخالية من الأبواب جعلت الأعرابي يدخل مباشرة ويجذب الثوب (أجلاف بطبيعة بيئتهم)، في حين أن أهل المدينة لاستقرارهم ووفرة الوحي كثرت أسئلتهم فنهاهم القرآن: <em>﴿يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَسْأَلُوا عَنْ أَشْيَاءَ إِن تُبْدَ لَكُمْ تَسُؤْكُمْ﴾</em>، وكان الصحابة ينتظرون الأعرابي ليسأل لبساطته وعفويته الناتجة من بيئته.
+                </div>
+            </div>
+        </details>
+
+        <!-- ACCORDION SECTION 4 -->
+        <details class="group bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+            <summary class="flex items-center justify-between p-5 bg-gradient-to-r from-slate-50 to-white hover:bg-sky-50/50 cursor-pointer border-b border-slate-100 select-none">
+                <div class="flex items-center gap-3">
+                    <span class="w-9 h-9 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-base font-cairo">4</span>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900 font-cairo flex items-center gap-2">
+                            <span>وصف وتصنيف الشخصية: نموذج آيزنك (Eysenck) والعوامل الخمسة الكبرى (Big Five)</span>
+                            <span class="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full font-semibold border border-red-200">قمة الأهمية الامتحانية</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-0.5">مبدأ الطرفين المتضادين (Two Extremes)، أبعاد آيزنك، وأبعاد نموذج (OCEAN) الحديث</p>
+                    </div>
+                </div>
+                <div class="arrow-icon transition-transform duration-200 text-slate-400 group-hover:text-sky-600 text-lg">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </summary>
+
+            <div class="p-6 space-y-6 text-sm text-slate-700 bg-white">
+                
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <h4 class="font-bold text-slate-900 font-cairo text-sm mb-1">
+                        فلسفة تصنيف الشخصية (Classification Principle):
+                    </h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">
+                        لا يمكن وصف كل شخص بسبعين وصفاً عشوائياً، بل يضع علماء النفس معياراً أو بُعداً (Dimension) ويتم أخذ الطرفين الأقصيين (Two Extremes: الأعلى والأدنى)، ويكون عموم الناس درجات واقعة على هذا المتصل بين القطبين.
+                    </p>
+                </div>
+
+                <!-- Hans Eysenck Model -->
+                <div class="border border-sky-200 rounded-xl p-5 bg-gradient-to-br from-white to-sky-50">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-bold text-sky-950 font-cairo text-base">
+                            أولاً: نموذج هانز آيزنك (Hans Eysenck Model)
+                        </h4>
+                        <span class="text-xs bg-sky-200 text-sky-900 px-2 py-0.5 rounded font-mono font-bold">تاريخي أساسي</span>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-4">
+                        بدأ آيزنك بنموذج ثنائي الأبعاد يعتمد على متصل الانبساط/الانطواء والاستقرار/عدم الاستقرار، ثم تبلور في ثلاثة أبعاد رئيسية:
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                        <!-- Dim 1 -->
+                        <div class="bg-white p-3.5 rounded-xl border border-sky-200 shadow-sm">
+                            <span class="font-bold text-sky-800 block text-sm mb-1">1. Extraversion (الانبساط)</span>
+                            <div class="space-y-1.5 mt-2">
+                                <div class="bg-sky-50 p-1.5 rounded">
+                                    <strong class="text-sky-900">High:</strong> اجتماعي، باحث عن الإثارة والحواس (Sensation seeking).
+                                </div>
+                                <div class="bg-slate-100 p-1.5 rounded">
+                                    <strong class="text-slate-800">Low (Introvert):</strong> منطوٍ، هادئ، يفضل العزلة والاحتفاظ بخبراته.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dim 2 -->
+                        <div class="bg-white p-3.5 rounded-xl border border-rose-200 shadow-sm">
+                            <span class="font-bold text-rose-800 block text-sm mb-1">2. Neuroticism (العصابية / القلق)</span>
+                            <div class="space-y-1.5 mt-2">
+                                <div class="bg-rose-50 p-1.5 rounded">
+                                    <strong class="text-rose-900">High:</strong> متوتر، عصبي، سريع الانفعال والتقلب (Tense, Irritable, Nervous).
+                                </div>
+                                <div class="bg-slate-100 p-1.5 rounded">
+                                    <strong class="text-slate-800">Low (Stable):</strong> هادئ، متزن، رزين ومستقر انفعالياً (Calm).
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dim 3 -->
+                        <div class="bg-white p-3.5 rounded-xl border border-purple-200 shadow-sm">
+                            <span class="font-bold text-purple-800 block text-sm mb-1">3. Psychoticism (الذهانية / القسوة)</span>
+                            <div class="space-y-1.5 mt-2">
+                                <div class="bg-purple-50 p-1.5 rounded">
+                                    <strong class="text-purple-900">High:</strong> عدواني، أناني، يفتقر للمشاعر والتعاطف (Aggressive, Selfish, No emotions).
+                                </div>
+                                <div class="bg-slate-100 p-1.5 rounded">
+                                    <strong class="text-slate-800">Low:</strong> دافئ المشاعر، مراعٍ للآخرين ومتعاطف (Warm, Aware of others).
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Big Five (OCEAN) -->
+                <div class="border-2 border-emerald-300 rounded-xl p-5 bg-emerald-50/40">
+                    <div class="flex items-center justify-between mb-2">
+                        <h4 class="font-bold text-emerald-950 font-cairo text-base flex items-center gap-2">
+                            <i class="fa-solid fa-star text-amber-500"></i>
+                            ثانياً: نظرية العوامل الخمسة الكبرى (Big Five Personality Traits - OCEAN)
+                        </h4>
+                        <span class="bg-red-600 text-white text-xs px-2.5 py-0.5 rounded-full font-bold">سؤال مؤكد</span>
+                    </div>
+                    <p class="text-xs text-slate-700 mb-4">
+                        النموذج الأحدث عالمياً المجمع عليه والذي يلخص أبعاد الشخصية في 5 سمات كبرى تجمعها كلمة <strong class="font-mono text-emerald-800">OCEAN</strong>:
+                    </p>
+
+                    <div class="space-y-2.5">
+                        <div class="bg-white p-3 rounded-lg border border-emerald-200 flex flex-col md:flex-row md:items-center justify-between gap-2 text-xs">
+                            <div>
+                                <strong class="text-emerald-800 font-mono text-sm">O - Openness to Experience:</strong>
+                                <span class="text-slate-700 mr-1">(الانفتاح على الخبرة) - رغبة الفرد في تجربة الجديد، خوض المغامرات، وتجربة المأكولات، وعرض أفكاره بجرأة مقابل الالتزام بالروتين الصارم والانغلاق.</span>
+                            </div>
+                            <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded self-start md:self-auto">المغامرة vs الروتين</span>
+                        </div>
+
+                        <div class="bg-white p-3 rounded-lg border border-emerald-200 flex flex-col md:flex-row md:items-center justify-between gap-2 text-xs">
+                            <div>
+                                <strong class="text-emerald-800 font-mono text-sm">C - Conscientiousness:</strong>
+                                <span class="text-slate-700 mr-1">(يقظة الضمير / الانضباط) - دقة التنظيم، الالتزام الحرفي بالقواعد والمبادئ الأخلاقية الصارمة مقابل الإهمال والعشوائية والضمير المنفلت.</span>
+                            </div>
+                            <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded self-start md:self-auto">يقظة الضمير vs العشوائية</span>
+                        </div>
+
+                        <div class="bg-white p-3 rounded-lg border border-emerald-200 flex flex-col md:flex-row md:items-center justify-between gap-2 text-xs">
+                            <div>
+                                <strong class="text-emerald-800 font-mono text-sm">E - Extraversion:</strong>
+                                <span class="text-slate-700 mr-1">(الانبساطية والاجتماعية) - التفاعل مع الناس، الصوت العالي، والضحك والدعابة وارتداء الملابس اللافتة مقابل الانطواء والتحفظ.</span>
+                            </div>
+                            <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded self-start md:self-auto">الانبساط vs الانطواء</span>
+                        </div>
+
+                        <div class="bg-white p-3 rounded-lg border border-emerald-200 flex flex-col md:flex-row md:items-center justify-between gap-2 text-xs">
+                            <div>
+                                <strong class="text-emerald-800 font-mono text-sm">A - Agreeableness:</strong>
+                                <span class="text-slate-700 mr-1">(المسايرة والوفاق الاجتماعي) - سهولة التوافق والتعاون مع الآخرين ومشاركتهم ولين الجانب مقابل العداء والرفض والجدال.</span>
+                            </div>
+                            <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded self-start md:self-auto">التوافق vs المشاكسة</span>
+                        </div>
+
+                        <div class="bg-white p-3 rounded-lg border border-emerald-200 flex flex-col md:flex-row md:items-center justify-between gap-2 text-xs">
+                            <div>
+                                <strong class="text-emerald-800 font-mono text-sm">N - Neuroticism:</strong>
+                                <span class="text-slate-700 mr-1">(العصابية / الاستقرار العاطفي) - سرعة القلق، الحزن، التوتر وتقلب المزاج مقابل الهدوء والاتزان الانفعالي الرصين.</span>
+                            </div>
+                            <span class="text-[11px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded self-start md:self-auto">القلق vs الاتزان</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 p-3 bg-white rounded-lg border border-amber-200 text-xs text-amber-900 font-medium">
+                        <strong>ملاحظة امتحانية دقيقة:</strong> الانفتاح على الخبرة (Openness) يختلف عن الانبساط (Extraversion)؛ فقد يكون الشخص منفتحاً جداً يستكشف ويتعلم تجارب جديدة ولكنه هادئ وساكت (Quiet & Explorer) دون صخب أو تهريج.
+                    </div>
+                </div>
+
+            </div>
+        </details>
+
+        <!-- ACCORDION SECTION 5 -->
+        <details class="group bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-200">
+            <summary class="flex items-center justify-between p-5 bg-gradient-to-r from-slate-50 to-white hover:bg-sky-50/50 cursor-pointer border-b border-slate-100 select-none">
+                <div class="flex items-center gap-3">
+                    <span class="w-9 h-9 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center font-bold text-base font-cairo">5</span>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-900 font-cairo flex items-center gap-2">
+                            <span>نظريات تكوين الشخصية: المنظور البيولوجي، التحليل النفسي (فرويد)، والسلوكية</span>
+                            <span class="bg-red-600 text-white text-xs px-2 py-0.5 rounded-full font-semibold">المحور الأضخم</span>
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-0.5">تصنيفات شيلدون وكريتشمر، الإرادة الحرة والحتمية، نماذج فرويد، مراحل النمو الجنسي، والحيل الدفاعية، ونظرية بافلوف</p>
+                    </div>
+                </div>
+                <div class="arrow-icon transition-transform duration-200 text-slate-400 group-hover:text-sky-600 text-lg">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+            </summary>
+
+            <div class="p-6 space-y-8 text-sm text-slate-700 bg-white">
+                
+                <!-- 5.1 Biological / Physical Models -->
+                <div class="border border-slate-200 rounded-xl p-5 bg-slate-50/50">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="w-7 h-7 rounded-lg bg-sky-600 text-white flex items-center justify-center font-bold text-xs font-cairo">1</span>
+                        <h4 class="font-bold text-slate-900 font-cairo text-base">المنظور البيولوجي والشكل الجسدي (Sheldon & Kretschmer)</h4>
+                    </div>
+                    <p class="text-xs text-slate-600 mb-3">
+                        افترضت هذه النظريات القديمة أن شخصية الفرد تتشكل حتماً وفق شكل بنيته الجسدية (Body Type):
+                    </p>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-right text-xs bg-white border border-slate-200 rounded-lg">
+                            <thead class="bg-slate-100 text-slate-800 font-bold border-b border-slate-200 font-cairo">
+                                <tr>
+                                    <th class="p-2.5">النمط الجسدي</th>
+                                    <th class="p-2.5">تصنيف شيلدون (Sheldon)</th>
+                                    <th class="p-2.5">تصنيف كريتشمر (Kretschmer)</th>
+                                    <th class="p-2.5">السمات المزعومة للشخصية</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200">
+                                <tr>
+                                    <td class="p-2.5 font-bold text-slate-800">الممتلئ / السمين</td>
+                                    <td class="p-2.5 font-mono text-sky-700 font-bold">Endomorphic</td>
+                                    <td class="p-2.5 font-mono text-purple-700 font-bold">Pyknic</td>
+                                    <td class="p-2.5">طيب، مرح، اجتماعي، دمه خفيف، يحب المزاح والراحة.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-bold text-slate-800">العضلي / الرياضي</td>
+                                    <td class="p-2.5 font-mono text-sky-700 font-bold">Mesomorphic</td>
+                                    <td class="p-2.5 font-mono text-purple-700 font-bold">Athletic</td>
+                                    <td class="p-2.5">عنيف، عدواني، نشط، قيادي، حاسم.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-bold text-slate-800">النحيف / الطويل</td>
+                                    <td class="p-2.5 font-mono text-sky-700 font-bold">Ectomorphic</td>
+                                    <td class="p-2.5 font-mono text-purple-700 font-bold">Asthenic</td>
+                                    <td class="p-2.5">مفكر، منطوٍ، غلبان، هادئ (يدعي أنه المخ والآخرون عضلات).</td>
+                                </tr>
+                                <tr class="bg-slate-50">
+                                    <td class="p-2.5 font-bold text-slate-800">الخليط غير المتناسق</td>
+                                    <td class="p-2.5 text-slate-400">—</td>
+                                    <td class="p-2.5 font-mono text-purple-700 font-bold">Dysplastic</td>
+                                    <td class="p-2.5">أضافه كريتشمر ليشمل من تتداخل بنية أجسادهم.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-2.5 p-2 bg-amber-50 rounded border border-amber-200 text-[11px] text-amber-900">
+                        <strong>نقد المحاضر:</strong> تصنيف باطل علمياً؛ فالشخصية لا تتحدد بالجسد (مثال: "بيج رامي" أضخم عضلات ولكنه في غاية الطيبة والهدوء).
+                    </div>
+                </div>
+
+                <!-- 5.2 Psychoanalysis & Freud -->
+                <div class="border-2 border-indigo-200 rounded-xl p-5 bg-gradient-to-br from-indigo-50/30 to-white">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="w-7 h-7 rounded-lg bg-indigo-700 text-white flex items-center justify-center font-bold text-xs font-cairo">2</span>
+                        <h4 class="font-bold text-indigo-950 font-cairo text-base">
+                            مدرسة التحليل النفسي (Psychoanalysis) - سيجموند فرويد (Freud)
+                        </h4>
+                    </div>
+
+                    <!-- Philosophical foundation critique -->
+                    <div class="p-3.5 bg-slate-100 rounded-xl border border-slate-300 text-xs text-slate-700 space-y-2 mb-4">
+                        <h5 class="font-bold text-slate-900 font-cairo">المنطلقات الفلسفية ونفي الإرادة الحرة (Free Will):</h5>
+                        <p>
+                            تبنى فرويد النظرة الداروينية المادية التي تعامل الإنسان كمادة حيوانية بلا إرادة حرة؛ لأن إثبات الإرادة الحرة والمسؤولية الأخلاقية يثبت الخالق سبحانه. لذلك استبدلها بمبدأ <strong>الحتمية النفسية القائمة على قوى عشوائية غير عقلانية (Irrational Forces)</strong> تُحرك الإنسان دون وعي منه.
+                        </p>
+                    </div>
+
+                    <!-- Freud's Dual Models: Topographic vs Structural -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                        
+                        <!-- Topographic Model -->
+                        <div class="bg-white p-4 rounded-xl border border-sky-300 shadow-sm">
+                            <h5 class="font-bold text-sky-900 font-cairo text-sm mb-2 flex items-center gap-1.5">
+                                <i class="fa-solid fa-mountain text-sky-600"></i> النموذج الطبوغرافي (Topographic Model)
+                            </h5>
+                            <p class="text-xs text-slate-600 mb-2">يشبه الجهاز النفسي بجبل الجليد الطافي في المحيط:</p>
+                            <ul class="text-xs space-y-1.5 text-slate-700">
+                                <li><strong>1. الوعي (Conscious):</strong> الجزء الصغير الظاهر على السطح (واعتبره فرويد مجرد خدعة وقشرة زائفة).</li>
+                                <li><strong>2. ما قبل الوعي (Preconscious):</strong> ذكريات ومعارف يسهل استدعاؤها للوعي عند الحاجة.</li>
+                                <li><strong>3. اللاوعي (Unconscious):</strong> <span class="text-red-700 font-bold">الكتلة العظمى الغاطسة</span> التي يستحيل على الإنسان أن يعيها بذاته، وتضم الغرائز البدائية والصدمات، وهو المحرك الفعلي للإنسان.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Structural Model -->
+                        <div class="bg-white p-4 rounded-xl border border-indigo-300 shadow-sm">
+                            <h5 class="font-bold text-indigo-900 font-cairo text-sm mb-2 flex items-center gap-1.5">
+                                <i class="fa-solid fa-cubes text-indigo-600"></i> النموذج البنائي (Structural Model)
+                            </h5>
+                            <ul class="text-xs space-y-2 text-slate-700">
+                                <li class="bg-slate-50 p-2 rounded border border-slate-200">
+                                    <strong class="text-rose-700 font-mono text-sm">الهُو (Id):</strong> يولد به الإنسان، يمثل منبع الغرائز الحيوانية ومستودع الطاقة الحيوية الجنسية والعدوانية (Libido)، يعمل بمبدأ اللذة العاجلة بلا عقل أو أخلاق.
+                                </li>
+                                <li class="bg-slate-50 p-2 rounded border border-slate-200">
+                                    <strong class="text-purple-700 font-mono text-sm">الأنا الأعلى (Super-Ego):</strong> يتشكل تدريجياً نتيجة عقاب المجتمع والأسرة، يمثل الضمير الصارم والقيم والمحاذير لحماية الفرد من الافتراس المجتمعي، ويقوم بكبت رغبات الـ Id بقسوة وإشعار الإنسان بالذنب.
+                                </li>
+                                <li class="bg-slate-50 p-2 rounded border border-slate-200">
+                                    <strong class="text-sky-700 font-mono text-sm">الأنا (Ego):</strong> العقل والواقع، وظيفته التوفيق الحذر بين رغبات الـ Id الجامحة وصرامة الـ Super-Ego وقيود المجتمع عبر استخدام <strong>الحيل الدفاعية</strong>.
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <!-- Defense Mechanisms -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 mb-5">
+                        <h5 class="font-bold text-slate-900 font-cairo text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-emerald-600"></i>
+                            الحيل والآليات الدفاعية (Defense Mechanisms):
+                        </h5>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                            ابتكرها فرويد لتفسير كيف يخدع الوعي نفسه؛ فهي وسائل لاواعية يلجأ إليها الـ (Ego) للتعبير عن الرغبات المحظورة (الجنس والعدوان) بصورة ملتوية مقبولة اجتماعياً للهروب من عقاب الـ Super-Ego والشعور بالذنب والقلق.
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <div class="p-2.5 bg-slate-50 rounded border border-slate-200">
+                                <strong class="text-slate-800">الكبت (Repression):</strong> دفن الرغبات والدوافع غير المقبولة قسراً في اللاوعي (وهو أصل نشأة مصطلح الكبت وعقد فرويد).
+                            </div>
+                            <div class="p-2.5 bg-slate-50 rounded border border-slate-200">
+                                <strong class="text-slate-800">التكوين العكسي (Reaction Formation):</strong> إظهار نقيض الشعور اللاواعي تماماً (مثل إظهار حب مبالغ فيه لشخص بينما في اللاوعي رغبة في التخلص منه خوفاً من العقاب).
+                            </div>
+                            <div class="p-2.5 bg-slate-50 rounded border border-slate-200">
+                                <strong class="text-slate-800">التوحد مع المعتدي (Identification with Aggressor):</strong> الخضوع للمتسلط والتطبع بطباعه خوفاً من بطشه (كتبرير فرويد لخضوع الابن للأب خوفاً من الخصاء).
+                            </div>
+                            <div class="p-2.5 bg-slate-50 rounded border border-slate-200">
+                                <strong class="text-slate-800">Mature vs Immature:</strong> صنف فرويد الحيلة بأنها ناضجة إذا نجحت في تفريغ الغريزة بأمان، وغير ناضجة إذا سببت كبتاً وجلداً للذات.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Psychosexual Stages -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-3">
+                            <h5 class="font-bold text-slate-900 font-cairo text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-timeline text-indigo-600"></i>
+                                مراحل النمو النفسجنسي عند فرويد (Psychosexual Development Stages):
+                            </h5>
+                            <span class="text-xs bg-red-100 text-red-800 px-2 py-0.5 rounded font-bold">تفريغ وتحليل نقدي</span>
+                        </div>
+                        <p class="text-xs text-slate-600 mb-3">
+                            افترض فرويد أن طاقة الـ Libido تتمركز في عضو جسدي معين في كل مرحلة، وأن شخصية الإنسان البالغ تتحدد بحدوث التثبيت (Fixation) عند إحدى هذه المراحل:
+                        </p>
+
+                        <div class="space-y-3 text-xs">
+                            <!-- Stage 1 -->
+                            <div class="border-r-4 border-sky-500 bg-slate-50 p-3 rounded-l-lg">
+                                <strong class="text-sky-950 font-bold block text-sm font-cairo">1. المرحلة الفمية (Oral Phase):</strong>
+                                <p class="text-slate-700 mt-1">
+                                    تتمركز اللبيدو في الفم. الرضاعة عند فرويد ليست للغذاء بل لإشباع رغبة جنسية، وعض ثدي الأم هو تعبير عدواني عشوائي.
+                                </p>
+                                <span class="text-slate-500 text-[11px] block mt-1">
+                                    <strong>آثار التثبيت (Oral Fixation) لدى البالغين:</strong> حب الإفراط في الأكل وتنويعه، شرب السجائر، قضم الأظافر.
+                                </span>
+                            </div>
+
+                            <!-- Stage 2 -->
+                            <div class="border-r-4 border-amber-500 bg-slate-50 p-3 rounded-l-lg">
+                                <strong class="text-amber-950 font-bold block text-sm font-cairo">2. المرحلة الشرجية (Anal Phase):</strong>
+                                <p class="text-slate-700 mt-1">
+                                    تتمركز اللبيدو في منطقة الإخراج أثناء تدريب الحمام (Toilet Training). حبس البراز يعتبره فرويد عدواناً على الأم المفترسة وانتقاماً منها.
+                                </p>
+                                <span class="text-slate-500 text-[11px] block mt-1">
+                                    <strong>آثار التثبيت (Anal Fixation):</strong> صفة البخل والإمساك المالي، واعتبر فرويد حرص المتدين على الطهارة والنظافة مجرد تثبيت شرجي تعويضي عن وسخ الذنب!
+                                </span>
+                            </div>
+
+                            <!-- Stage 3 -->
+                            <div class="border-r-4 border-rose-500 bg-slate-50 p-3 rounded-l-lg">
+                                <strong class="text-rose-950 font-bold block text-sm font-cairo">3. المرحلة القضيبية (Phallic Phase) - قمة الجدل:</strong>
+                                <p class="text-slate-700 mt-1">
+                                    تنتقل اللبيدو للأعضاء التناسلية (سن 3-5 سنوات). تصبح الأم هي الفريسة التي يتنازع عليها الذكران (الأب والابن):
+                                </p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+                                    <div class="bg-white p-2 rounded border border-rose-200">
+                                        <strong class="text-rose-900">عقدة أوديب (Oedipus Complex):</strong> يشتهي الابن أمه جنسياً ويكره والده، ثم يخاف من عقاب الأب بقطع عضوه التناسلي فيما يسمى <strong>قلق الخصاء (Castration Anxiety)</strong>، فيضطر للتوحد مع الأب.
+                                    </div>
+                                    <div class="bg-white p-2 rounded border border-rose-200">
+                                        <strong class="text-rose-900">عقدة إلكترا وحسد القضيب:</strong> ادعى فرويد أن البنت تشتهي أباها وتكره أمها، وتكتشف أنها تفتقر لعضو الصبيان فتشعر أنها مخصية سلفاً، ويتولد لديها <strong>حسد القضيب (Penis Envy)</strong> الذي فسر به رغبتها في العمل والمنافسة!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Extensions & Feminist Critiques -->
+                    <div class="mt-4 p-4 bg-purple-50 border border-purple-200 rounded-xl text-xs space-y-2">
+                        <h5 class="font-bold text-purple-900 font-cairo text-sm">الردود النسوية والامتدادات (كارين هورني وميلاني كلاين):</h5>
+                        <ul class="space-y-1.5 list-disc list-inside text-purple-950">
+                            <li>
+                                <strong>كارين هورني (Karen Horney):</strong> ردت على مزاعم فرويد حول حسد القضيب بطرح مضاد سمته <strong>حسد الرَّحِم (Womb Envy)</strong>، مدعية أن سعي الرجل للإنتاجية والعمل وتفوقه ليس إلا حسداً دفيناً للمرأة على قدرتها الفريدة على إنجاب الأطفال وحملهم في الرحم!
+                            </li>
+                            <li>
+                                <strong>صراع ثدي الأم واضطرابات النهم:</strong> رفضت هورني ومحللون تركيز فرويد على الجنس في الطفولة، وجعلوا المحرك هو "العدوان فقط"، وزعموا أن الرضيع في أشهره الثلاثة الأولى لديه خيالات لاواعية لتمزيق وأكل ثدي أمه، فإذا كبر وأصيب بالنهم العصبي (Bulimia) فإنه يلتهم الطعام تمثيلاً لأكل أمه ثم يتقيأ تكفيراً عن ذنب افتراسها!
+                            </li>
+                            <li>
+                                <strong>كتاب "أبي الذي أكره":</strong> انتقد المحاضر الترويج لمثل هذه النظريات وتصديرها للشباب عبر منصات التواصل على أنها حقائق، في حين أنها افتراضات خيالية وغير مثبتة علمياً.
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- 5.3 Behavioral Approach -->
+                <div class="border-2 border-emerald-200 rounded-xl p-5 bg-gradient-to-br from-emerald-50/30 to-white">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="w-7 h-7 rounded-lg bg-emerald-700 text-white flex items-center justify-center font-bold text-xs font-cairo">3</span>
+                        <h4 class="font-bold text-emerald-950 font-cairo text-base">
+                            المنظور السلوكي والاشتراط الكلاسيكي (Behavioral Approach & Classical Conditioning)
+                        </h4>
+                    </div>
+
+                    <p class="text-xs text-slate-700 mb-3">
+                        انطلق السلوكيون من المادية ذاتها لكنهم كفّروا التحليليين واعتبروهم "أصحاب دين ميتافيزيقي جديد" لأن مفاهيم (Ego, Super-Ego) لا يمكن لمسها بالحس. لذا حصروا علم النفس فيما يمكن <strong>رؤيته وقياسه وتجريبه فسيولوجياً وسلوكياً فقط</strong>، وأنكروا العمليات العقلية والذاكرة التقديرية للإنسان معتبرين إياه مجرد كائن عضوي (Organism) يتعلم تماماً كالكلاب والحيوانات.
+                    </p>
+
+                    <!-- Learning Definition -->
+                    <div class="bg-white p-3 rounded-lg border border-emerald-300 font-mono text-xs text-emerald-950 mb-4">
+                        <strong>تعريف التعلم السلوكي (Learning Definition - Exam):</strong><br>
+                        "Learning is the process by which experience produces a relatively enduring or permanent change in the organism's behavior."
+                    </div>
+
+                    <!-- Pavlov's Experiment Table -->
+                    <div class="bg-white p-4 rounded-xl border border-slate-200">
+                        <h5 class="font-bold text-slate-900 font-cairo text-sm mb-2 flex items-center gap-1.5">
+                            <i class="fa-solid fa-bell text-amber-500"></i>
+                            تجربة بافلوف (Ivan Pavlov) - المصطلحات الامتحانية الأكيدة:
+                        </h5>
+                        <p class="text-xs text-slate-600 mb-3">
+                            قام بافلوف بقرن تقديم الطعام بصوت جرس، وبعد التكرار أصبح الجرس وحده يسيل لعاب الكلب، مستنبطاً معادلة التعلم:
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                            <div class="bg-slate-50 p-2.5 rounded border border-slate-200">
+                                <strong class="text-sky-800 block font-mono">1. UCS (الطعام):</strong>
+                                <span class="text-slate-700">Unconditioned Stimulus (مثير غير شرطي / طبيعي) - يحدث الاستجابة تلقائياً دون تدريب.</span>
+                            </div>
+                            <div class="bg-slate-50 p-2.5 rounded border border-slate-200">
+                                <strong class="text-sky-800 block font-mono">2. UCR (اللعاب):</strong>
+                                <span class="text-slate-700">Unconditioned Response (استجابة غير شرطية / فطرية) - إسالة اللعاب الطبيعية عند رؤية الطعام.</span>
+                            </div>
+                            <div class="bg-slate-50 p-2.5 rounded border border-slate-200">
+                                <strong class="text-emerald-800 block font-mono">3. CS (الجرس):</strong>
+                                <span class="text-slate-700">Conditioned Stimulus (مثير شرطي) - كان في الأصل مثيراً محايداً (Neutral)، واكتسب القدرة بعد اقترانه بالطعام.</span>
+                            </div>
+                            <div class="bg-slate-50 p-2.5 rounded border border-slate-200">
+                                <strong class="text-emerald-800 block font-mono">4. CR (اللعاب):</strong>
+                                <span class="text-slate-700">Conditioned Response (استجابة شرطية) - إسالة اللعاب عند سماع الجرس فقط بلا طعام.</span>
+                            </div>
+                        </div>
+
+                        <!-- Rule Formula -->
+                        <div class="mt-3 p-3 bg-emerald-50 rounded-lg border border-emerald-300 text-xs text-emerald-950 font-medium">
+                            <strong>القاعدة الذهبية للاشتراط:</strong>
+                            <div class="font-mono text-center my-1 text-slate-800 text-[11px] bg-white p-1 rounded">
+                                "The conditioned response is elicited by the conditioned stimulus after being paired with the unconditioned stimulus."
+                            </div>
+                        </div>
+
+                        <!-- Behavioral Application in Marketing & Phobias -->
+                        <div class="mt-3 p-3 bg-slate-50 rounded-lg text-xs space-y-1.5 text-slate-700">
+                            <span class="font-bold text-slate-900 block font-cairo">تطبيقات السلوكية في تفسير الشخصية والمخاوف والإعلانات:</span>
+                            <p>
+                                <strong>تفسير المخاوف المرضية (Phobias):</strong> يرى السلوكيون أن الخوف من شيء غير مخيف حدث نتيجة اقترانه في الطفولة بموقف مرعب، فاكتسب صفة المثير الشرطي.
+                            </p>
+                            <p>
+                                <strong>استغلال المرأة في الدعاية والإعلانات التجارية:</strong> تطبيق لمبدأ الاقتران (Pairing) حيث يتم تصوير الإنسان ككائن غريزي مجرد من العقل، فيوضع منتج جامد (سيارة مثلاً) مقترناً بصورة ملفتة فيربط الدماغ الشعور الإيجابي بالسلعة ويشتريها آلياً.
+                            </p>
+                            <p class="text-amber-800 text-[11px]">
+                                <strong>تعقيب المحاضر:</strong> هذا النموذج قد ينجح جزئياً لكنه ينكر جوهر الإنسان المتمثل في الذاكرة (Memory) والعمليات العقلية الباطنة (Internal Processes) وخبر الصادق الذي هو مصدر أساسي للعلم.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </details>
+
+        <!-- Quick Summary & Exam Checklist Card -->
+        <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white rounded-2xl p-6 shadow-xl no-print">
+            <h3 class="text-lg font-bold font-cairo text-sky-400 mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-list-check"></i>
+                قائمة المراجعة السريعة لليلة الامتحان (High-Yield Checklist)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs text-slate-200">
+                <div class="bg-white/10 p-3 rounded-xl border border-white/10">
+                    <strong class="text-sky-300 block mb-1">تعريف Personality</strong>
+                    النمط الكلي للسلوك (Total pattern of individual behavior...) المميز عبر الزمان والمواقف.
+                </div>
+                <div class="bg-white/10 p-3 rounded-xl border border-white/10">
+                    <strong class="text-amber-300 block mb-1">الفرق: Trait vs Character</strong>
+                    الـ Trait فطرية جبلية لا توصف بصح أو خطأ. الـ Character مكتسبة تقييمية (Right/Wrong).
+                </div>
+                <div class="bg-white/10 p-3 rounded-xl border border-white/10">
+                    <strong class="text-emerald-300 block mb-1">اختصار OCEAN (Big Five)</strong>
+                    Openness, Conscientiousness, Extraversion, Agreeableness, Neuroticism.
+                </div>
+                <div class="bg-white/10 p-3 rounded-xl border border-white/10">
+                    <strong class="text-rose-300 block mb-1">أبعاد آيزنك الثلاثية</strong>
+                    Extraversion vs Introversion, Neuroticism vs Stability, Psychoticism vs Warmth.
+                </div>
+                <div class="bg-white/10 p-3 rounded-xl border border-white/10">
+                    <strong class="text-purple-300 block mb-1">بنية الجهاز النفسي عند فرويد</strong>
+                    الهو (Id) منبع الغرائز، الأنا الأعلى (Super-Ego) الضمير الكابت، الأنا (Ego) الموفق بالحيل الدفاعية.
+                </div>
+                <div class="bg-white/10 p-3 rounded-xl border border-white/10">
+                    <strong class="text-teal-300 block mb-1">معادلة بافلوف (Conditioning)</strong>
+                    تحول المثير المحايد (الجرس) إلى مثير شرطي (CS) بعد اقترانه بالمثير الطبيعي (UCS) لإحداث (CR).
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-5 border-t border-slate-800 mt-auto no-print">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-right">
+            <div>
+                <span>تفريغ وتنسيق محاضرات علم النفس والطب النفسي • د. أيمن • تم إعداد المادة لتناسب المراجعة الطبية والأكاديمية</span>
+            </div>
+            <div class="flex items-center gap-4 text-slate-300">
+                <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="hover:text-sky-400 transition flex items-center gap-1">
+                    <i class="fa-solid fa-arrow-up"></i> العودة للأعلى
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Client Scripts -->
+    <script>
+        // Toggle Accordion Functionality
+        function toggleAllAccordions(shouldOpen) {
+            const allDetails = document.querySelectorAll('main details');
+            allDetails.forEach(detail => {
+                detail.open = shouldOpen;
+            });
+        }
+
+        // Live Search Filter Functionality
+        function filterContent() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const detailsList = document.querySelectorAll('main details');
+            const searchBadge = document.getElementById('searchBadge');
+            let matchCount = 0;
+
+            if (!query) {
+                searchBadge.classList.add('hidden');
+                detailsList.forEach(detail => {
+                    detail.style.display = 'block';
+                });
+                return;
+            }
+
+            detailsList.forEach(detail => {
+                const text = detail.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    detail.style.display = 'block';
+                    detail.open = true; // Auto open matched details
+                    matchCount++;
+                } else {
+                    detail.style.display = 'none';
+                }
+            });
+
+            searchBadge.classList.remove('hidden');
+            searchBadge.innerText = `نتائج مطابقة: ${matchCount}`;
+        }
+    </script>
+</body>
+</html>
